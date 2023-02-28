@@ -1012,6 +1012,7 @@ void Utils::mergeCloseLinesBF(
 
 void Utils::mergeCoLinearLines(
         std::vector<LineSegment2D>& line_segments,
+        float angle_threshold,
         float perp_dist_threshold)
 {
     if (line_segments.size() < 2)
@@ -1026,17 +1027,20 @@ void Utils::mergeCoLinearLines(
         size_t i = 0;
         while ( i+skip_index < line_segments.size() )
         {
+            const float angular_dist = Utils::calcShortestAngle(
+                    line_segments[i].angle(), line_segments[i+skip_index].angle());
             const Point2D start_proj_pt = Utils::calcProjectedPointOnLine(
                     line_segments[i].start, line_segments[i].end,
                     line_segments[i+skip_index].start, false);
-            float start_perp_dist = start_proj_pt.distTo(
+            const float start_perp_dist = start_proj_pt.distTo(
                     line_segments[i+skip_index].start);
             const Point2D end_proj_pt = Utils::calcProjectedPointOnLine(
                     line_segments[i].start, line_segments[i].end,
                     line_segments[i+skip_index].end, false);
-            float end_perp_dist = end_proj_pt.distTo(
+            const float end_perp_dist = end_proj_pt.distTo(
                     line_segments[i+skip_index].end);
-            if ( start_perp_dist < perp_dist_threshold &&
+            if ( std::fabs(angular_dist) < angle_threshold &&
+                 start_perp_dist < perp_dist_threshold &&
                  end_perp_dist < perp_dist_threshold )
             {
                 line_segments[i].end = line_segments[i+skip_index].end;
