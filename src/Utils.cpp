@@ -1010,6 +1010,45 @@ void Utils::mergeCloseLinesBF(
     }
 }
 
+void Utils::mergeCoLinearLines(
+        std::vector<LineSegment2D>& line_segments,
+        float perp_dist_threshold)
+{
+    if (line_segments.size() < 2)
+    {
+        return;
+    }
+
+    size_t skip_index = 1;
+
+    while ( skip_index < line_segments.size() )
+    {
+        size_t i = 0;
+        while ( i+skip_index < line_segments.size() )
+        {
+            const Point2D start_proj_pt = Utils::calcProjectedPointOnLine(
+                    line_segments[i].start, line_segments[i].end,
+                    line_segments[i+skip_index].start, false);
+            float start_perp_dist = start_proj_pt.distTo(
+                    line_segments[i+skip_index].start);
+            const Point2D end_proj_pt = Utils::calcProjectedPointOnLine(
+                    line_segments[i].start, line_segments[i].end,
+                    line_segments[i+skip_index].end, false);
+            float end_perp_dist = end_proj_pt.distTo(
+                    line_segments[i+skip_index].end);
+            if ( start_perp_dist < perp_dist_threshold &&
+                 end_perp_dist < perp_dist_threshold )
+            {
+                line_segments[i].end = line_segments[i+skip_index].end;
+                line_segments.erase(line_segments.begin() + i + skip_index);
+                continue;
+            }
+            i++;
+        }
+        skip_index ++;
+    }
+}
+
 std::vector<LineSegment2D> Utils::fitLineSegments(
         const PointCloud2D& pts,
         float regression_error_threshold,
