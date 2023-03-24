@@ -490,8 +490,8 @@ class Utils
          */
         static void mergeCloseLines(
                 std::vector<LineSegment2D>& line_segments,
-                float distance_threshold = 0.2,
-                float angle_threshold = 0.2);
+                float distance_threshold = 0.2f,
+                float angle_threshold = 0.2f);
 
         /**
          * @brief 
@@ -502,8 +502,25 @@ class Utils
          */
         static void mergeCloseLinesBF(
                 std::vector<LineSegment2D>& line_segments,
-                float distance_threshold = 0.2,
-                float angle_threshold = 0.2);
+                float distance_threshold = 0.2f,
+                float angle_threshold = 0.2f);
+
+        /**
+         * @brief Merge co-linear line segments
+         *
+         * @param line_segments input line segments
+         * @param distance_threshold threshold for distance between two line
+         * segments
+         * @param angle_threshold threshold for relative angle between two line
+         * segments
+         * @param perp_dist_threshold threshold for perpendicular distance
+         * between two line segments
+         */
+        static void mergeCoLinearLines(
+                std::vector<LineSegment2D>& line_segments,
+                float distance_threshold = 0.2f,
+                float angle_threshold = 0.2f,
+                float perp_dist_threshold = 0.1f);
 
         /**
          * @brief 
