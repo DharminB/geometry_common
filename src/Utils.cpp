@@ -996,16 +996,26 @@ void Utils::mergeCloseLinesBF(
         size_t i = 0;
         while ( i+skip_index < line_segments.size() )
         {
-            float linear_dist = line_segments[i].end.distTo(
-                    line_segments[i+skip_index].start);
-            float angular_dist = Utils::calcShortestAngle(
+            const float angular_dist = Utils::calcShortestAngle(
                     line_segments[i].angle(), line_segments[i+skip_index].angle());
-            if ( linear_dist < distance_threshold &&
-                 std::fabs(angular_dist) < angle_threshold )
+            if ( std::fabs(angular_dist) < angle_threshold )
             {
-                line_segments[i].end = line_segments[i+skip_index].end;
-                line_segments.erase(line_segments.begin() + i + skip_index);
-                continue;
+                const float linear_dist_1 = line_segments[i].end.distTo(
+                        line_segments[i+skip_index].start);
+                if ( linear_dist_1 < distance_threshold )
+                {
+                    line_segments[i].end = line_segments[i+skip_index].end;
+                    line_segments.erase(line_segments.begin() + i + skip_index);
+                    continue;
+                }
+                const float linear_dist_2 = line_segments[i+skip_index].end.distTo(
+                        line_segments[i].start);
+                if ( linear_dist_2 < distance_threshold )
+                {
+                    line_segments[i].start = line_segments[i+skip_index].start;
+                    line_segments.erase(line_segments.begin() + i + skip_index);
+                    continue;
+                }
             }
             i++;
         }
