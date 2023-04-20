@@ -840,7 +840,7 @@ std::vector<LineSegment2D> Utils::applyPiecewiseRegression(
     }
 
     /* create line_segments from regression line segments */
-    for ( RegressionLineSegment rls : segments )
+    for ( const RegressionLineSegment& rls : segments )
     {
         LineSegment2D l;
         Utils::fitLineRegression(pts, rls.start_index, rls.end_index, l, true);
@@ -941,9 +941,12 @@ std::vector<LineSegment2D> Utils::applyPiecewiseRegressionSplit(
     }
 
     /* create line_segments from regression line segments */
-    for ( RegressionLineSegment rls : segments )
+    for ( const RegressionLineSegment& rls : segments )
     {
-        line_segments.push_back(rls.line_segment);
+        if ( rls.start_index != rls.end_index )
+        {
+            line_segments.push_back(rls.line_segment);
+        }
     }
     return line_segments;
 }
