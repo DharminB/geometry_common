@@ -173,6 +173,14 @@ class Utils
                 size_t min_cluster_size = 3);
 
         /**
+         * @brief Sort points based on angle it makes to origin
+         *
+         * @param points points to be sorted
+         */
+        static void orderPointsBasedOnAngle(
+                PointCloud2D& points);
+
+        /**
          * @brief Calculate trajectory (vector of poses) for fixed velocity
          * using euler forward integration
          *

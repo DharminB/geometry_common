@@ -250,6 +250,16 @@ std::vector<PointCloud2D> Utils::clusterOrderedPoints(
     return clusters;
 }
 
+void Utils::orderPointsBasedOnAngle(
+        PointCloud2D& points)
+{
+    std::sort(points.begin(), points.end(),
+              [](const Point2D& a, const Point2D& b)
+              {
+                  return a.angle() < b.angle();
+              });
+}
+
 std::vector<Pose2D> Utils::calcTrajectory(
         const Velocity2D& vel,
         size_t num_of_poses,
