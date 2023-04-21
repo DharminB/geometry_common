@@ -176,9 +176,13 @@ class Utils
          * @brief Sort points based on angle it makes to origin
          *
          * @param points points to be sorted
+         * @param angle_offset offset added to each point's angle. Needed when
+         * split at -pi/+pi boundary is undesirable.
+         * @return PointCloud2D ordered points
          */
-        static void orderPointsBasedOnAngle(
-                PointCloud2D& points);
+        static PointCloud2D orderPointsBasedOnAngle(
+                PointCloud2D& points,
+                float angle_offset = 0.0f);
 
         /**
          * @brief Calculate trajectory (vector of poses) for fixed velocity

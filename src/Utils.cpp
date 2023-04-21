@@ -250,14 +250,30 @@ std::vector<PointCloud2D> Utils::clusterOrderedPoints(
     return clusters;
 }
 
-void Utils::orderPointsBasedOnAngle(
-        PointCloud2D& points)
+PointCloud2D Utils::orderPointsBasedOnAngle(
+        PointCloud2D& points,
+        float angle_offset)
 {
-    std::sort(points.begin(), points.end(),
-              [](const Point2D& a, const Point2D& b)
+    const float angle_threshold = -M_PI + angle_offset;
+    std::vector<std::pair<size_t, float>> index_angles(points.size());
+    for ( size_t i = 0; i < points.size(); i++ )
+    {
+        index_angles[i].first = i;
+        const float angle = points[i].angle();
+        index_angles[i].second = ( angle < angle_threshold ) ? angle + (2*M_PI) : angle;
+    }
+    std::sort(index_angles.begin(), index_angles.end(),
+              [](const std::pair<size_t, float>& a, const std::pair<size_t, float>& b)
               {
-                  return a.angle() < b.angle();
+                  return a.second < b.second;
               });
+    PointCloud2D sorted_points;
+    sorted_points.reserve(points.size());
+    for ( const std::pair<size_t, float>& i : index_angles )
+    {
+        sorted_points.push_back(points[i.first]);
+    }
+    return sorted_points;
 }
 
 std::vector<Pose2D> Utils::calcTrajectory(
@@ -675,7 +691,7 @@ float Utils::fitLineRegression(
 {
     if ( pts.size() < 2 ||
          start_index >= pts.size() || end_index >= pts.size() ||
-         end_index <= start_index || end_index - start_index < 2 )
+         end_index <= start_index )
     {
         line_segment = LineSegment2D();
         return 0.0f;
