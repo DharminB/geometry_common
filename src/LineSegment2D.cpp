@@ -97,7 +97,8 @@ bool LineSegment2D::intersects(const LineSegment2D& line_segment) const
 
 bool LineSegment2D::calcIntersectionPointWith(
         const LineSegment2D& line_segment,
-        Point2D& intersection_point) const
+        Point2D& intersection_point,
+        bool is_outside_allowed) const
 {
     /**
      * source: https://stackoverflow.com/a/565282/10460994
@@ -140,15 +141,18 @@ bool LineSegment2D::calcIntersectionPointWith(
     const float t = vec3_cross_vec2/vec1_cross_vec2;
     const float u = vec3_cross_vec1/vec1_cross_vec2;
 
-    if ( std::fabs(vec1_cross_vec2) > 1e-10f &&
-         0.0f <= t && t <= 1.0f &&
-         0.0f <= u && u <= 1.0f )
+    if ( std::fabs(vec1_cross_vec2) > 1e-10f ) // The two line segments are not parallel
     {
-        intersection_point = start + (vec1 * t);
-        return true;
+        if ( !is_outside_allowed &&
+             (t <= 0.0f || t >= 1.0f ||
+              u <= 0.0f || u >= 1.0f) )
+        {
+            return false; // The two line segments intersect outside of bounds
+        }
     }
 
-    return false; // The two line segments are not parallel but do not intersect.
+    intersection_point = start + (vec1 * t);
+    return true;
 }
 
 Point2D LineSegment2D::closestPointTo(const Point2D& point) const

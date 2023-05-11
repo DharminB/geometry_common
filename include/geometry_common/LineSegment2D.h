@@ -151,15 +151,17 @@ class LineSegment2D
         bool intersects(const LineSegment2D& line_segment) const;
 
         /**
-         * @brief
+         * @brief Calculate intersection point with another line segment
          * 
-         * @param line_segment 
-         * @param intersection_point 
+         * @param line_segment second line segment
+         * @param intersection_point resultant intersection point
+         * @param is_outside_allowed if line segments should be treated as lines
          * @return bool 
          */
         bool calcIntersectionPointWith(
                 const LineSegment2D& line_segment,
-                Point2D& intersection_point) const;
+                Point2D& intersection_point,
+                bool is_outside_allowed = false) const;
 
         /**
          * @brief
