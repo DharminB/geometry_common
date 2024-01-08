@@ -144,8 +144,8 @@ bool LineSegment2D::calcIntersectionPointWith(
     if ( std::fabs(vec1_cross_vec2) > 1e-10f ) // The two line segments are not parallel
     {
         if ( !is_outside_allowed &&
-             (t <= 0.0f || t >= 1.0f ||
-              u <= 0.0f || u >= 1.0f) )
+             (t < 0.0f || t > 1.0f ||
+              u < 0.0f || u > 1.0f) )
         {
             return false; // The two line segments intersect outside of bounds
         }
