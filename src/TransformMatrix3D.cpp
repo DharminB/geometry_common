@@ -325,6 +325,13 @@ Point3D TransformMatrix3D::operator * (const Point3D& point) const
     return transformed_point;
 }
 
+PointCloud3D TransformMatrix3D::operator * (const PointCloud3D& cloud) const
+{
+    PointCloud3D transformed_cloud(cloud);
+    transform(transformed_cloud);
+    return transformed_cloud;
+}
+
 const float& TransformMatrix3D::operator [] (unsigned int index) const
 {
     return mat_[index];
