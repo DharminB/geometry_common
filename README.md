@@ -29,7 +29,7 @@ We use [Doxygen](https://www.doxygen.nl/index.html) for code documentation.
 Run unit tests with
 
 ```bash
-catkin build --this --catkin-make-args run_tests -- && rosrun geometry_common geometry_common_test
+colcon test --packages-up-to geometry_common --event-handlers console_direct+
 ```
 
 **Note**: Requires `GTest` package (`sudo apt install libgtest-dev`)

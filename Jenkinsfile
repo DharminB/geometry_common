@@ -11,24 +11,20 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                    cd /workspace/catkin_ws
-                    /ros_entrypoint.sh catkin build --no-status
+                    cd /workspace/ros2_ws
+                    /ros_entrypoint.sh colcon build --event-handlers desktop_notification- status-
                 '''
             }
         }
         stage('Test') {
             steps {
                 sh '''
-                    echo "Sourcing /workspace/catkin_ws/devel/setup.sh silently"
-                    set +x
-                    . /workspace/catkin_ws/devel/setup.sh
-                    set -x
-                    cd /workspace/catkin_ws/src/geometry_common
-                    catkin test --this --no-status
+                    . /workspace/ros2_ws/install/setup.sh
+                    colcon test --packages-up-to geometry_common --event-handlers console_direct+
                 '''
                 sh '''
                     mkdir -p test_results
-                    cp /workspace/catkin_ws/build/geometry_common/test_results/geometry_common/gtest-geometry_common_test.xml ./test_results/
+                    cp /workspace/ros2_ws/build/geometry_common/test_results/geometry_common/geometry_common_test.gtest.xml ./test_results/
                 '''
             }
         }
