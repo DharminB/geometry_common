@@ -38,13 +38,12 @@
  *
  ******************************************************************************/
 
-#ifndef KELO_GEOMETRY_COMMON_POLYGON_2D_H
-#define KELO_GEOMETRY_COMMON_POLYGON_2D_H
+#pragma once
 
-#include <geometry_msgs/PolygonStamped.h>
-#include <visualization_msgs/Marker.h>
+#include "geometry_msgs/msg/polygon_stamped.hpp"
+#include "visualization_msgs/msg/marker.hpp"
 
-#include <geometry_common/Polyline2D.h>
+#include "geometry_common/Polyline2D.h"
 
 namespace kelo
 {
@@ -254,9 +253,9 @@ class Polygon2D : public Polyline2D
          * @param alpha The transparency of the generated line marker
          * in the range [0.0, 1.0]
          * @param line_width The width of the line marker
-         * @return visualization_msgs::Marker A marker object representing the polygon
+         * @return visualization_msgs::msg::Marker A marker object representing the polygon
          */
-        visualization_msgs::Marker asMarker(
+        visualization_msgs::msg::Marker asMarker(
                 const std::string& frame = "base_link",
                 float red = 1.0f,
                 float green = 0.0f,
@@ -270,9 +269,9 @@ class Polygon2D : public Polyline2D
          *
          * @param frame The frame in which the polygon stamped message needs to
          * be published
-         * @return geometry_msgs::PolygonStamped message object
+         * @return geometry_msgs::msg::PolygonStamped message object
          */
-        geometry_msgs::PolygonStamped asPolygonStamped(
+        geometry_msgs::msg::PolygonStamped asPolygonStamped(
                 const std::string& frame = "base_link") const;
 
         /**
@@ -298,4 +297,3 @@ class Polygon2D : public Polyline2D
 
 } // namespace geometry_common
 } // namespace kelo
-#endif // KELO_GEOMETRY_COMMON_POLYGON_2D_H

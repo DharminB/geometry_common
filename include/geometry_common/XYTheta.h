@@ -38,8 +38,7 @@
  *
  ******************************************************************************/
 
-#ifndef KELO_GEOMETRY_COMMON_X_Y_THETA_H
-#define KELO_GEOMETRY_COMMON_X_Y_THETA_H
+#pragma once
 
 #include <iostream>
 #include <memory>
@@ -160,4 +159,3 @@ using Acceleration2D = XYTheta;
 
 } // namespace geometry_common
 } // namespace kelo
-#endif // KELO_GEOMETRY_COMMON_X_Y_THETA_H

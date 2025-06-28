@@ -40,14 +40,14 @@
 
 #include <cmath>
 
-#include <geometry_common/Utils.h>
-#include <geometry_common/Pose2D.h>
-#include <geometry_common/Point2D.h>
-#include <geometry_common/Circle.h>
-#include <geometry_common/LineSegment2D.h>
-#include <geometry_common/Polyline2D.h>
-#include <geometry_common/Polygon2D.h>
-#include <geometry_common/TransformMatrix2D.h>
+#include "geometry_common/Utils.h"
+#include "geometry_common/Pose2D.h"
+#include "geometry_common/Point2D.h"
+#include "geometry_common/Circle.h"
+#include "geometry_common/LineSegment2D.h"
+#include "geometry_common/Polyline2D.h"
+#include "geometry_common/Polygon2D.h"
+#include "geometry_common/TransformMatrix2D.h"
 
 namespace kelo
 {
@@ -65,9 +65,10 @@ TransformMatrix2D::TransformMatrix2D(
     update(x, y, qx, qy, qz, qw);
 }
 
-TransformMatrix2D::TransformMatrix2D(const tf::StampedTransform& stamped_transform)
+TransformMatrix2D::TransformMatrix2D(
+        const geometry_msgs::msg::TransformStamped& ts)
 {
-    update(stamped_transform);
+    update(ts);
 }
 
 TransformMatrix2D::TransformMatrix2D(const Pose2D& pose)
@@ -99,13 +100,16 @@ void TransformMatrix2D::update(
     updateQuaternion(qx, qy, qz, qw);
 }
 
-void TransformMatrix2D::update(const tf::StampedTransform& stamped_transform)
+void TransformMatrix2D::update(
+        const geometry_msgs::msg::TransformStamped& ts)
 {
-    float x = stamped_transform.getOrigin().x();
-    float y = stamped_transform.getOrigin().y();
-
-    tf::Quaternion q = stamped_transform.getRotation();
-    update(x, y, q.x(), q.y(), q.z(), q.w());
+    update(
+        ts.transform.translation.x,
+        ts.transform.translation.y,
+        ts.transform.rotation.x,
+        ts.transform.rotation.y,
+        ts.transform.rotation.z,
+        ts.transform.rotation.w);
 }
 
 void TransformMatrix2D::update(const Pose2D& pose)

@@ -38,8 +38,8 @@
  *
  ******************************************************************************/
 
-#include <geometry_common/Utils.h>
-#include <geometry_common/Point2D.h>
+#include "geometry_common/Utils.h"
+#include "geometry_common/Point2D.h"
 
 namespace kelo
 {
@@ -51,27 +51,27 @@ Point2D Point2D::initFromRadialCoord(float radius, float angle)
     return Point2D(radius * std::cos(angle), radius * std::sin(angle));
 }
 
-geometry_msgs::Point Point2D::asPoint() const
+geometry_msgs::msg::Point Point2D::asPoint() const
 {
-    geometry_msgs::Point point;
+    geometry_msgs::msg::Point point;
     point.x = x;
     point.y = y;
     point.z = 0.0f;
     return point;
 }
 
-geometry_msgs::Point32 Point2D::asPoint32() const
+geometry_msgs::msg::Point32 Point2D::asPoint32() const
 {
-    geometry_msgs::Point32 point;
+    geometry_msgs::msg::Point32 point;
     point.x = x;
     point.y = y;
     point.z = 0.0f;
     return point;
 }
 
-geometry_msgs::PointStamped Point2D::asPointStamped(const std::string& frame) const
+geometry_msgs::msg::PointStamped Point2D::asPointStamped(const std::string& frame) const
 {
-    geometry_msgs::PointStamped point;
+    geometry_msgs::msg::PointStamped point;
     point.header.frame_id = frame;
     point.point = asPoint();
     return point;
@@ -109,12 +109,12 @@ float Point2D::angle() const
     return std::atan2(y, x);
 }
 
-visualization_msgs::Marker Point2D::asMarker(const std::string& frame,
+visualization_msgs::msg::Marker Point2D::asMarker(const std::string& frame,
         float red, float green, float blue, float alpha, float diameter, 
         float z) const
 {
-    visualization_msgs::Marker marker;
-    marker.type = visualization_msgs::Marker::SPHERE;
+    visualization_msgs::msg::Marker marker;
+    marker.type = visualization_msgs::msg::Marker::SPHERE;
     marker.header.frame_id = frame;
     marker.color.r = red;
     marker.color.g = green;
@@ -130,25 +130,25 @@ visualization_msgs::Marker Point2D::asMarker(const std::string& frame,
     return marker;
 }
 
-visualization_msgs::InteractiveMarker Point2D::asInteractiveMarker(
+visualization_msgs::msg::InteractiveMarker Point2D::asInteractiveMarker(
         const std::string& name, const std::string& frame,
         float red, float green, float blue, float alpha,
         float diameter, float z) const
 {
-    visualization_msgs::InteractiveMarker interactive_marker;
+    visualization_msgs::msg::InteractiveMarker interactive_marker;
     interactive_marker.header.frame_id = frame;
     interactive_marker.name = name;
     interactive_marker.pose.position = asPoint();
     interactive_marker.pose.orientation.w = 1.0f;
 
-    visualization_msgs::Marker sphere_marker = asMarker(
+    visualization_msgs::msg::Marker sphere_marker = asMarker(
             frame, red, green, blue, alpha, diameter, z);
 
-    visualization_msgs::InteractiveMarkerControl sphere_control;
+    visualization_msgs::msg::InteractiveMarkerControl sphere_control;
     sphere_control.always_visible = true;
     sphere_control.markers.push_back(sphere_marker);
     sphere_control.name = "move_x_y";
-    sphere_control.interaction_mode = visualization_msgs::InteractiveMarkerControl::MOVE_PLANE;
+    sphere_control.interaction_mode = visualization_msgs::msg::InteractiveMarkerControl::MOVE_PLANE;
     float qx, qy, qz, qw;
     Utils::convertEulerToQuaternion(0.0f, M_PI/2, 0.0f, qx, qy, qz, qw);
     sphere_control.orientation.x = qx;

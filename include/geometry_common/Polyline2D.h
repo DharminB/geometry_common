@@ -38,13 +38,12 @@
  *
  ******************************************************************************/
 
-#ifndef KELO_GEOMETRY_COMMON_POLYLINE_2D_H
-#define KELO_GEOMETRY_COMMON_POLYLINE_2D_H
+#pragma once
 
-#include <visualization_msgs/Marker.h>
+#include "visualization_msgs/msg/marker.hpp"
 
-#include <geometry_common/LineSegment2D.h>
-#include <geometry_common/Pose2D.h>
+#include "geometry_common/LineSegment2D.h"
+#include "geometry_common/Pose2D.h"
 
 namespace kelo
 {
@@ -184,9 +183,9 @@ class Polyline2D
          * @param alpha The transparency of the generated line marker
          * in the range [0.0, 1.0]
          * @param line_width The width of the line marker
-         * @return visualization_msgs::Marker A marker object representing the polyline
+         * @return visualization_msgs::msg::Marker A marker object representing the polyline
          */
-        virtual visualization_msgs::Marker asMarker(
+        virtual visualization_msgs::msg::Marker asMarker(
                 const std::string& frame = "base_link",
                 float red = 1.0f,
                 float green = 0.0f,
@@ -263,4 +262,3 @@ class Polyline2D
 
 } // namespace geometry_common
 } // namespace kelo
-#endif // KELO_GEOMETRY_COMMON_POLYLINE_2D_H

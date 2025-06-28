@@ -38,8 +38,7 @@
  *
  ******************************************************************************/
 
-#ifndef KELO_GEOMETRY_COMMON_ENUMS_H
-#define KELO_GEOMETRY_COMMON_ENUMS_H
+#pragma once
 
 #include <vector>
 #include <string>
@@ -93,4 +92,3 @@ inline WindingOrder asWindingOrder(const std::string& winding_order_string)
 
 } // namespace geometry_common
 } // namespace kelo
-#endif // KELO_GEOMETRY_COMMON_ENUMS_H

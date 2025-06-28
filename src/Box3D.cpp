@@ -38,7 +38,7 @@
  *
  ******************************************************************************/
 
-#include <geometry_common/Box3D.h>
+#include "geometry_common/Box3D.h"
 
 namespace kelo
 {
@@ -105,12 +105,12 @@ Point3D Box3D::center() const
                    (min_z + max_z)/2);
 }
 
-visualization_msgs::Marker Box3D::asMarker(
+visualization_msgs::msg::Marker Box3D::asMarker(
         const std::string& frame,
         float red, float green, float blue, float alpha) const
 {
-    visualization_msgs::Marker marker;
-    marker.type = visualization_msgs::Marker::CUBE;
+    visualization_msgs::msg::Marker marker;
+    marker.type = visualization_msgs::msg::Marker::CUBE;
     marker.header.frame_id = frame;
     marker.color.r = red;
     marker.color.g = green;

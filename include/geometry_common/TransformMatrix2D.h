@@ -38,12 +38,11 @@
  *
  ******************************************************************************/
 
-#ifndef KELO_GEOMETRY_COMMON_TRANSFORM_MATRIX_2D_H
-#define KELO_GEOMETRY_COMMON_TRANSFORM_MATRIX_2D_H
+#pragma once
 
 #include <array>
 
-#include <tf/transform_datatypes.h>
+#include "geometry_msgs/msg/transform_stamped.hpp"
 
 namespace kelo
 {
@@ -98,7 +97,7 @@ class TransformMatrix2D
          */
         TransformMatrix2D(float x, float y, float qx, float qy, float qz, float qw);
 
-        TransformMatrix2D(const tf::StampedTransform& stamped_transform);
+        TransformMatrix2D(const geometry_msgs::msg::TransformStamped& ts);
 
         TransformMatrix2D(const Pose2D& pose);
 
@@ -116,7 +115,7 @@ class TransformMatrix2D
 
         void update(float x, float y, float qx, float qy, float qz, float qw);
 
-        void update(const tf::StampedTransform& stamped_transform);
+        void update(const geometry_msgs::msg::TransformStamped& ts);
 
         void update(const Pose2D& pose);
 
@@ -240,4 +239,3 @@ class TransformMatrix2D
 
 } // namespace geometry_common
 } // namespace kelo
-#endif // KELO_GEOMETRY_COMMON_TRANSFORM_MATRIX_2D_H

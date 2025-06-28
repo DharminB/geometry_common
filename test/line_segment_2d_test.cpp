@@ -1,5 +1,6 @@
-#include <gtest/gtest.h>
-#include <geometry_common/LineSegment2D.h>
+#include "gtest/gtest.h"
+
+#include "geometry_common/LineSegment2D.h"
 
 using kelo::geometry_common::Point2D;
 using kelo::geometry_common::LineSegment2D;

@@ -38,8 +38,8 @@
  *
  ******************************************************************************/
 
-#include <geometry_common/Polygon2D.h>
-#include <geometry_common/Circle.h>
+#include "geometry_common/Polygon2D.h"
+#include "geometry_common/Circle.h"
 
 namespace kelo
 {
@@ -76,11 +76,11 @@ bool Circle::fromPoints(const Point2D& p1, const Point2D& p2,
     return true;
 }
 
-visualization_msgs::Marker Circle::asMarker(const std::string& frame,
+visualization_msgs::msg::Marker Circle::asMarker(const std::string& frame,
         float red, float green, float blue, float alpha) const
 {
-    visualization_msgs::Marker marker;
-    marker.type = visualization_msgs::Marker::SPHERE;
+    visualization_msgs::msg::Marker marker;
+    marker.type = visualization_msgs::msg::Marker::SPHERE;
     marker.header.frame_id = frame;
     marker.color.r = red;
     marker.color.g = green;

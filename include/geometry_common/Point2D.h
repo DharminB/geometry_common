@@ -38,17 +38,15 @@
  *
  ******************************************************************************/
 
-#ifndef KELO_GEOMETRY_COMMON_POINT_2D_H
-#define KELO_GEOMETRY_COMMON_POINT_2D_H
-
-#include <visualization_msgs/Marker.h>
-#include <visualization_msgs/InteractiveMarker.h>
-
-#include <geometry_msgs/PointStamped.h>
-#include <geometry_msgs/Point32.h>
-#include <geometry_msgs/Point.h>
+#pragma once
 
 #include <cmath>
+
+#include "geometry_msgs/msg/point.hpp"
+#include "geometry_msgs/msg/point32.hpp"
+#include "geometry_msgs/msg/point_stamped.hpp"
+#include "visualization_msgs/msg/marker.hpp"
+#include "visualization_msgs/msg/interactive_marker.hpp"
 
 namespace kelo
 {
@@ -89,30 +87,30 @@ class Point2D
             Point2D(point.x, point.y) {}
 
         /**
-         * @brief Construct Point2D from geometry_msgs::PointStamped object.
+         * @brief Construct Point2D from geometry_msgs::msg::PointStamped object.
          * Ignores z coordinate.
          *
-         * @param point geometry_msgs::PointStamped object
+         * @param point geometry_msgs::msg::PointStamped object
          */
-        Point2D(const geometry_msgs::PointStamped& point):
+        Point2D(const geometry_msgs::msg::PointStamped& point):
             Point2D(point.point) {}
 
         /**
-         * @brief Construct Point2D from geometry_msgs::Point object. Ignores z
+         * @brief Construct Point2D from geometry_msgs::msg::Point object. Ignores z
          * coordinate.
          *
-         * @param point geometry_msgs::Point object
+         * @param point geometry_msgs::msg::Point object
          */
-        Point2D(const geometry_msgs::Point& point):
+        Point2D(const geometry_msgs::msg::Point& point):
             Point2D(point.x, point.y) {}
 
         /**
-         * @brief Construct Point2D from geometry_msgs::Point32 object. Ignores
+         * @brief Construct Point2D from geometry_msgs::msg::Point32 object. Ignores
          * z coordinate.
          *
-         * @param point geometry_msgs::Point32 object
+         * @param point geometry_msgs::msg::Point32 object
          */
-        Point2D(const geometry_msgs::Point32& point):
+        Point2D(const geometry_msgs::msg::Point32& point):
             Point2D(point.x, point.y) {}
 
         /**
@@ -135,24 +133,24 @@ class Point2D
         /**
          * @brief
          * 
-         * @return geometry_msgs::Point 
+         * @return geometry_msgs::msg::Point 
          */
-        geometry_msgs::Point asPoint() const;
+        geometry_msgs::msg::Point asPoint() const;
 
         /**
          * @brief
          * 
-         * @return geometry_msgs::Point32 
+         * @return geometry_msgs::msg::Point32 
          */
-        geometry_msgs::Point32 asPoint32() const;
+        geometry_msgs::msg::Point32 asPoint32() const;
 
         /**
          * @brief
          * 
          * @param frame 
-         * @return geometry_msgs::PointStamped 
+         * @return geometry_msgs::msg::PointStamped 
          */
-        geometry_msgs::PointStamped asPointStamped(
+        geometry_msgs::msg::PointStamped asPointStamped(
                 const std::string& frame = "map") const;
 
         /**
@@ -234,9 +232,9 @@ class Point2D
          * @param alpha 
          * @param diameter 
          * @param z 
-         * @return visualization_msgs::Marker 
+         * @return visualization_msgs::msg::Marker 
          */
-        visualization_msgs::Marker asMarker(
+        visualization_msgs::msg::Marker asMarker(
                 const std::string& frame = "base_link",
                 float red = 1.0f,
                 float green = 0.0f,
@@ -245,7 +243,7 @@ class Point2D
                 float diameter = 0.2f,
                 float z = 0.0f) const;
 
-        visualization_msgs::InteractiveMarker asInteractiveMarker(
+        visualization_msgs::msg::InteractiveMarker asInteractiveMarker(
                 const std::string& name,
                 const std::string& frame = "base_link",
                 float red = 1.0f,
@@ -343,4 +341,3 @@ using PointCloud2D = std::vector<Point2D>;
 
 } // namespace geometry_common
 } // namespace kelo
-#endif // KELO_GEOMETRY_COMMON_POINT_H

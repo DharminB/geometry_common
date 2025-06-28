@@ -45,9 +45,11 @@
 #include <cassert>
 #include <list>
 #include <deque>
-#include <sensor_msgs/point_cloud2_iterator.h>
-#include <geometry_common/TransformMatrix2D.h>
-#include <geometry_common/Utils.h>
+
+#include "sensor_msgs/point_cloud2_iterator.hpp"
+
+#include "geometry_common/TransformMatrix2D.h"
+#include "geometry_common/Utils.h"
 
 namespace kelo
 {
@@ -1261,11 +1263,11 @@ Point2D Utils::calcSplineCurvePoint(
 }
 
 template <typename T>
-sensor_msgs::PointCloud Utils::convertToROSPointCloud(
+sensor_msgs::msg::PointCloud Utils::convertToROSPointCloud(
         const std::vector<T>& pc,
         const std::string& frame)
 {
-    sensor_msgs::PointCloud cloud;
+    sensor_msgs::msg::PointCloud cloud;
     // cloud.header.stamp = ros::Time::now();
     cloud.header.frame_id = frame;
     cloud.points.reserve(pc.size());
@@ -1275,17 +1277,17 @@ sensor_msgs::PointCloud Utils::convertToROSPointCloud(
     }
     return cloud;
 }
-template sensor_msgs::PointCloud Utils::convertToROSPointCloud(
+template sensor_msgs::msg::PointCloud Utils::convertToROSPointCloud(
         const PointCloud2D& pc, const std::string& frame);
-template sensor_msgs::PointCloud Utils::convertToROSPointCloud(
+template sensor_msgs::msg::PointCloud Utils::convertToROSPointCloud(
         const PointCloud3D& pc, const std::string& frame);
 
 PointCloud3D Utils::convertToPointCloud3D(
-        const sensor_msgs::PointCloud& pc)
+        const sensor_msgs::msg::PointCloud& pc)
 {
     std::vector<Point3D> points;
     points.reserve(pc.points.size());
-    for ( const geometry_msgs::Point32& p : pc.points )
+    for ( const geometry_msgs::msg::Point32& p : pc.points )
     {
         points.push_back(Point3D(p));
     }
@@ -1293,7 +1295,7 @@ PointCloud3D Utils::convertToPointCloud3D(
 }
 
 PointCloud3D Utils::convertToPointCloud3D(
-        const sensor_msgs::PointCloud2& cloud_msg,
+        const sensor_msgs::msg::PointCloud2& cloud_msg,
         size_t row_sub_sample_factor,
         size_t col_sub_sample_factor)
 {
@@ -1340,7 +1342,7 @@ PointCloud3D Utils::convertToPointCloud3D(
 
 template <typename T>
 std::vector<T> Utils::convertToPointCloud(
-        const sensor_msgs::LaserScan& scan)
+        const sensor_msgs::msg::LaserScan& scan)
 {
     std::vector<T> laser_pts;
     for ( size_t i = 0; i < scan.ranges.size(); i++ )
@@ -1359,9 +1361,9 @@ std::vector<T> Utils::convertToPointCloud(
     return laser_pts;
 }
 template PointCloud2D Utils::convertToPointCloud<Point2D>(
-        const sensor_msgs::LaserScan& scan);
+        const sensor_msgs::msg::LaserScan& scan);
 template PointCloud3D Utils::convertToPointCloud<Point3D>(
-        const sensor_msgs::LaserScan& scan);
+        const sensor_msgs::msg::LaserScan& scan);
 
 float Utils::calcPerpendicularAngle(
         float angle)
@@ -1496,11 +1498,11 @@ void Utils::convertEulerToQuaternion(
     qz = (cr * cp * sy) - (sr * sp * cy);
 }
 
-nav_msgs::Path Utils::convertToROSPath(
+nav_msgs::msg::Path Utils::convertToROSPath(
         const std::vector<Pose2D>& trajectory,
         const std::string& frame)
 {
-    nav_msgs::Path path_msg;
+    nav_msgs::msg::Path path_msg;
     path_msg.header.frame_id = frame;
     path_msg.poses.clear();
 
@@ -1511,7 +1513,7 @@ nav_msgs::Path Utils::convertToROSPath(
     return path_msg;
 }
 
-visualization_msgs::Marker Utils::convertGeometricPathToMarker(
+visualization_msgs::msg::Marker Utils::convertGeometricPathToMarker(
         const Path& geometric_path,
         const std::string& frame,
         float red,
@@ -1520,8 +1522,8 @@ visualization_msgs::Marker Utils::convertGeometricPathToMarker(
         float alpha,
         float line_width)
 {
-    visualization_msgs::Marker marker;
-    marker.type = visualization_msgs::Marker::LINE_STRIP;
+    visualization_msgs::msg::Marker marker;
+    marker.type = visualization_msgs::msg::Marker::LINE_STRIP;
     marker.header.frame_id = frame;
     marker.color.r = red;
     marker.color.g = green;
@@ -1538,7 +1540,7 @@ visualization_msgs::Marker Utils::convertGeometricPathToMarker(
 }
 
 template <typename T>
-visualization_msgs::Marker Utils::convertPointCloudToMarker(
+visualization_msgs::msg::Marker Utils::convertPointCloudToMarker(
         const std::vector<T>& cloud,
         const std::string& frame,
         float diameter,
@@ -1547,8 +1549,8 @@ visualization_msgs::Marker Utils::convertPointCloudToMarker(
         float blue,
         float alpha)
 {
-    visualization_msgs::Marker cloud_marker;
-    cloud_marker.type = visualization_msgs::Marker::POINTS;
+    visualization_msgs::msg::Marker cloud_marker;
+    cloud_marker.type = visualization_msgs::msg::Marker::POINTS;
     cloud_marker.pose.orientation.w = 1.0f;
     cloud_marker.scale.x = diameter;
     cloud_marker.scale.y = diameter;
@@ -1564,14 +1566,14 @@ visualization_msgs::Marker Utils::convertPointCloudToMarker(
     }
     return cloud_marker;
 }
-template visualization_msgs::Marker Utils::convertPointCloudToMarker(
+template visualization_msgs::msg::Marker Utils::convertPointCloudToMarker(
         const PointCloud2D& cloud, const std::string& frame,
         float diameter, float red, float green, float blue, float alpha);
-template visualization_msgs::Marker Utils::convertPointCloudToMarker(
+template visualization_msgs::msg::Marker Utils::convertPointCloudToMarker(
         const PointCloud3D& cloud, const std::string& frame,
         float diameter, float red, float green, float blue, float alpha);
 
-visualization_msgs::Marker Utils::convertStringToMarker(
+visualization_msgs::msg::Marker Utils::convertStringToMarker(
         const std::string& string_label,
         const std::string& frame,
         float red,
@@ -1580,8 +1582,8 @@ visualization_msgs::Marker Utils::convertStringToMarker(
         float alpha,
         float size)
 {
-    visualization_msgs::Marker marker;
-    marker.type = visualization_msgs::Marker::TEXT_VIEW_FACING;
+    visualization_msgs::msg::Marker marker;
+    marker.type = visualization_msgs::msg::Marker::TEXT_VIEW_FACING;
     marker.header.frame_id = frame;
     marker.color.r = red;
     marker.color.g = green;

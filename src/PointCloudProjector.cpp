@@ -39,8 +39,9 @@
  ******************************************************************************/
 
 #include <cmath>
-#include <geometry_common/Utils.h>
-#include <geometry_common/PointCloudProjector.h>
+
+#include "geometry_common/Utils.h"
+#include "geometry_common/PointCloudProjector.h"
 
 namespace kelo
 {

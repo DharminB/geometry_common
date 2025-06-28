@@ -38,19 +38,18 @@
  *
  ******************************************************************************/
 
-#ifndef KELO_GEOMETRY_COMMON_POSE_2D_H
-#define KELO_GEOMETRY_COMMON_POSE_2D_H
-
-#include <geometry_msgs/PoseStamped.h>
-#include <geometry_msgs/Pose.h>
-#include <visualization_msgs/Marker.h>
-#include <visualization_msgs/InteractiveMarker.h>
-#include <tf/transform_datatypes.h>
+#pragma once
 
 #include <cmath>
 
-#include <geometry_common/Point2D.h>
-#include <geometry_common/XYTheta.h>
+#include "geometry_msgs/msg/pose.hpp"
+#include "geometry_msgs/msg/pose_stamped.hpp"
+#include "geometry_msgs/msg/transform_stamped.hpp"
+#include "visualization_msgs/msg/marker.hpp"
+#include "visualization_msgs/msg/interactive_marker.hpp"
+
+#include "geometry_common/Point2D.h"
+#include "geometry_common/XYTheta.h"
 
 namespace kelo
 {
@@ -109,14 +108,14 @@ class Pose2D : public XYTheta
          * 
          * @param pose 
          */
-        Pose2D(const geometry_msgs::PoseStamped& pose);
+        Pose2D(const geometry_msgs::msg::PoseStamped& pose);
 
         /**
          * @brief
          * 
          * @param pose 
          */
-        Pose2D(const geometry_msgs::Pose& pose);
+        Pose2D(const geometry_msgs::msg::Pose& pose);
 
         /**
          * @brief
@@ -130,7 +129,7 @@ class Pose2D : public XYTheta
          * 
          * @param stamped_transform 
          */
-        Pose2D(const tf::StampedTransform& stamped_transform);
+        Pose2D(const geometry_msgs::msg::TransformStamped& ts);
 
         /**
          * @brief
@@ -156,17 +155,17 @@ class Pose2D : public XYTheta
          * @brief
          * 
          * @param frame 
-         * @return geometry_msgs::PoseStamped 
+         * @return geometry_msgs::msg::PoseStamped 
          */
-        geometry_msgs::PoseStamped asPoseStamped(
+        geometry_msgs::msg::PoseStamped asPoseStamped(
                 const std::string& frame = "map") const;
 
         /**
          * @brief
          * 
-         * @return geometry_msgs::Pose 
+         * @return geometry_msgs::msg::Pose 
          */
-        geometry_msgs::Pose asPose() const;
+        geometry_msgs::msg::Pose asPose() const;
 
         /**
          * @brief
@@ -186,9 +185,9 @@ class Pose2D : public XYTheta
          * @param size_x 
          * @param size_y 
          * @param size_z 
-         * @return visualization_msgs::Marker 
+         * @return visualization_msgs::msg::Marker 
          */
-        visualization_msgs::Marker asMarker(
+        visualization_msgs::msg::Marker asMarker(
                 const std::string& frame = "base_link",
                 float red = 1.0f,
                 float green = 0.0f,
@@ -198,7 +197,7 @@ class Pose2D : public XYTheta
                 float size_y = 0.05f,
                 float size_z = 0.05f) const;
 
-        visualization_msgs::InteractiveMarker asInteractiveMarker(
+        visualization_msgs::msg::InteractiveMarker asInteractiveMarker(
                 const std::string& name,
                 const std::string& frame = "base_link",
                 float red = 1.0f,
@@ -293,4 +292,3 @@ using PoseVec2D = std::vector<Pose2D>;
 
 } // namespace geometry_common
 } // namespace kelo
-#endif // KELO_GEOMETRY_COMMON_POSE_2D_H

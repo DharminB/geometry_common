@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.5.1)
+cmake_minimum_required(VERSION 3.28.3)
 project(geometry_common)
 
-add_compile_options(-std=c++11)
+add_compile_options(-std=c++17)
 
 # All warning enabled build option set to ON by default
 option(ENABLE_ALL_WARNINGS "Build with all warnings enabled" ON)
@@ -15,31 +15,11 @@ if(BUILD_WITH_MAX_OPTIMISATION)
     add_compile_options(-O3)
 endif(BUILD_WITH_MAX_OPTIMISATION)
 
-find_package(catkin REQUIRED COMPONENTS
-    tf
-    std_msgs
-    sensor_msgs
-    geometry_msgs
-    nav_msgs
-    visualization_msgs
-    tf2_geometry_msgs
-)
-
-catkin_package(
-    CATKIN_DEPENDS
-        tf
-        std_msgs
-        sensor_msgs
-        geometry_msgs
-        nav_msgs
-        visualization_msgs
-        tf2_geometry_msgs
-    INCLUDE_DIRS
-        include
-    LIBRARIES
-        geometry_utils
-        pointcloud_projector
-)
+find_package(ament_cmake REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
 
 # The documentation build option set to OFF by default
 option(BUILD_DOC "Build documentation" OFF)
@@ -66,11 +46,6 @@ if(BUILD_DOC)
     endif (DOXYGEN_FOUND)
 endif(BUILD_DOC)
 
-include_directories(
-    include
-    ${catkin_INCLUDE_DIRS}
-)
-
 # =========
 # LIBRARIES
 # =========
@@ -90,31 +65,61 @@ add_library(geometry_utils
     src/TransformMatrix2D.cpp
     src/TransformMatrix3D.cpp
 )
-target_link_libraries(geometry_utils
+target_include_directories(geometry_utils PUBLIC
+   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+   "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")
+target_link_libraries(geometry_utils PUBLIC
+    ${sensor_msgs_TARGETS}
+    ${geometry_msgs_TARGETS}
+    ${nav_msgs_TARGETS}
+    ${visualization_msgs_TARGETS}
 )
 
 add_library(pointcloud_projector
     src/PointCloudProjector.cpp
 )
+target_include_directories(geometry_utils PUBLIC
+   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+   "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")
 target_link_libraries(pointcloud_projector
     geometry_utils
+)
+
+# =======
+# INSTALL
+# =======
+install(
+    TARGETS
+        geometry_utils
+        pointcloud_projector
+    EXPORT
+        export_geometry_common
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin
+)
+
+install(
+    DIRECTORY
+        include/
+    DESTINATION
+        include/${PROJECT_NAME}
 )
 
 # =====
 # TESTS
 # =====
-if (CATKIN_ENABLE_TESTING)
+if (BUILD_TESTING)
     add_subdirectory(test)
 endif ()
 
-# =======
-# INSTALL
-# =======
-install(TARGETS geometry_utils pointcloud_projector
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+ament_export_dependencies(
+    tf2
+    sensor_msgs
+    geometry_msgs
+    nav_msgs
+    visualization_msgs)
 
-install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-)
+ament_export_targets(export_geometry_common)
+
+ament_package()

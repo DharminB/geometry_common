@@ -38,23 +38,22 @@
  *
  ******************************************************************************/
 
-#ifndef KELO_GEOMETRY_COMMON_UTILS_H
-#define KELO_GEOMETRY_COMMON_UTILS_H
+#pragma once
 
 #include <vector>
 #include <string>
 
-#include <geometry_msgs/Point32.h>
-#include <nav_msgs/Path.h>
-#include <sensor_msgs/PointCloud.h>
-#include <sensor_msgs/PointCloud2.h>
-#include <sensor_msgs/LaserScan.h>
+#include "geometry_msgs/msg/point32.hpp"
+#include "nav_msgs/msg/path.hpp"
+#include "sensor_msgs/msg/point_cloud.hpp"
+#include "sensor_msgs/msg/point_cloud2.hpp"
+#include "sensor_msgs/msg/laser_scan.hpp"
 
-#include <geometry_common/Pose2D.h>
-#include <geometry_common/Point3D.h>
-#include <geometry_common/Circle.h>
-#include <geometry_common/LineSegment2D.h>
-#include <geometry_common/Enums.h>
+#include "geometry_common/Pose2D.h"
+#include "geometry_common/Point3D.h"
+#include "geometry_common/Circle.h"
+#include "geometry_common/LineSegment2D.h"
+#include "geometry_common/Enums.h"
 
 namespace kelo
 {
@@ -695,15 +694,15 @@ class Utils
 
         /**
          * @brief Convert from PointCloud2D or PointCloud3D to
-         * sensor_msgs::PointCloud
+         * sensor_msgs::msg::PointCloud
          * 
          * @tparam T Point2D or Point3D
          * @param pc PointCloud2D or PointCloud3D
          * @param frame 
-         * @return sensor_msgs::PointCloud 
+         * @return sensor_msgs::msg::PointCloud 
          */
         template <typename T>
-        static sensor_msgs::PointCloud convertToROSPointCloud(
+        static sensor_msgs::msg::PointCloud convertToROSPointCloud(
                 const std::vector<T>& pc,
                 const std::string& frame = "base_link");
 
@@ -714,7 +713,7 @@ class Utils
          * @return PointCloud3D 
          */
         static PointCloud3D convertToPointCloud3D(
-                const sensor_msgs::PointCloud& pc);
+                const sensor_msgs::msg::PointCloud& pc);
 
         /**
          * @brief `row_sub_sample_factor` and `col_sub_sample_factor` parameterise how
@@ -729,7 +728,7 @@ class Utils
          * @return PointCloud3D 
          */
         static PointCloud3D convertToPointCloud3D(
-                const sensor_msgs::PointCloud2& cloud_msg,
+                const sensor_msgs::msg::PointCloud2& cloud_msg,
                 size_t row_sub_sample_factor = 1,
                 size_t col_sub_sample_factor = 1);
 
@@ -743,7 +742,7 @@ class Utils
          */
         template <typename T>
         static std::vector<T> convertToPointCloud(
-                const sensor_msgs::LaserScan& scan);
+                const sensor_msgs::msg::LaserScan& scan);
 
         /**
          * @brief
@@ -866,9 +865,9 @@ class Utils
          * 
          * @param trajectory 
          * @param frame 
-         * @return nav_msgs::Path 
+         * @return nav_msgs::msg::Path 
          */
-        static nav_msgs::Path convertToROSPath(
+        static nav_msgs::msg::Path convertToROSPath(
                 const std::vector<Pose2D>& trajectory,
                 const std::string& frame);
 
@@ -882,9 +881,9 @@ class Utils
          * @param blue 
          * @param alpha 
          * @param line_width 
-         * @return visualization_msgs::Marker 
+         * @return visualization_msgs::msg::Marker 
          */
-        static visualization_msgs::Marker convertGeometricPathToMarker(
+        static visualization_msgs::msg::Marker convertGeometricPathToMarker(
                 const Path& geometric_path,
                 const std::string& frame = "base_link",
                 float red = 1.0f,
@@ -908,7 +907,7 @@ class Utils
          * @return 
          */
         template <typename T>
-        static visualization_msgs::Marker convertPointCloudToMarker(
+        static visualization_msgs::msg::Marker convertPointCloudToMarker(
                 const std::vector<T>& cloud,
                 const std::string& frame = "base_link",
                 float diameter = 0.05f,
@@ -927,9 +926,9 @@ class Utils
          * @param blue 
          * @param alpha 
          * @param size 
-         * @return visualization_msgs::Marker 
+         * @return visualization_msgs::msg::Marker 
          */
-        static visualization_msgs::Marker convertStringToMarker(
+        static visualization_msgs::msg::Marker convertStringToMarker(
                 const std::string& string_label,
                 const std::string& frame,
                 float red = 0.0f,
@@ -941,4 +940,3 @@ class Utils
 
 } // namespace geometry_common
 } // namespace kelo
-#endif // KELO_GEOMETRY_COMMON_UTILS_H

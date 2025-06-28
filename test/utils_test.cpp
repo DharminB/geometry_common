@@ -1,8 +1,8 @@
-#include <gtest/gtest.h>
-
 #include <vector>
 
-#include <geometry_common/Utils.h>
+#include "gtest/gtest.h"
+
+#include "geometry_common/Utils.h"
 
 using kelo::geometry_common::Point2D;
 using kelo::geometry_common::PointVec2D;
@@ -64,7 +64,7 @@ TEST(UtilsTest, calcWindingOrder)
 TEST(UtilsTest, convertQuaternionToEuler)
 {
     float roll, pitch, yaw;
-    geometry_msgs::Quaternion q;
+    geometry_msgs::msg::Quaternion q;
     q.x = 0.0f;
     q.y = 0.0f;
     q.z = 0.0f;

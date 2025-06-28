@@ -39,8 +39,9 @@
  ******************************************************************************/
 
 #include <cmath>
-#include <geometry_common/Utils.h>
-#include <geometry_common/XYTheta.h>
+
+#include "geometry_common/Utils.h"
+#include "geometry_common/XYTheta.h"
 
 namespace kelo
 {

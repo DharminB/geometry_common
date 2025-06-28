@@ -39,9 +39,10 @@
  ******************************************************************************/
 
 #include <cmath>
-#include <geometry_common/Utils.h>
-#include <geometry_common/Point3D.h>
-#include <geometry_common/LineSegment2D.h>
+
+#include "geometry_common/Utils.h"
+#include "geometry_common/Point3D.h"
+#include "geometry_common/LineSegment2D.h"
 
 namespace kelo
 {
@@ -177,11 +178,11 @@ bool LineSegment2D::containsPoint(
     return ( minDistTo(point) < dist_threshold );
 }
 
-visualization_msgs::Marker LineSegment2D::asMarker(const std::string& frame,
+visualization_msgs::msg::Marker LineSegment2D::asMarker(const std::string& frame,
         float red, float green, float blue, float alpha, float line_width) const
 {
-    visualization_msgs::Marker marker;
-    marker.type = visualization_msgs::Marker::LINE_LIST;
+    visualization_msgs::msg::Marker marker;
+    marker.type = visualization_msgs::msg::Marker::LINE_LIST;
     marker.header.frame_id = frame;
     marker.color.r = red;
     marker.color.g = green;

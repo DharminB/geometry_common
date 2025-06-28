@@ -1,5 +1,6 @@
-#include <gtest/gtest.h>
-#include <geometry_common/Circle.h>
+#include "gtest/gtest.h"
+
+#include "geometry_common/Circle.h"
 
 using kelo::geometry_common::Circle;
 using kelo::geometry_common::Point2D;
