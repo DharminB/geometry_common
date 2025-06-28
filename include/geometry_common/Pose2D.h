@@ -127,7 +127,7 @@ class Pose2D : public XYTheta
         /**
          * @brief
          * 
-         * @param stamped_transform 
+         * @param ts transform stamped message
          */
         Pose2D(const geometry_msgs::msg::TransformStamped& ts);
 

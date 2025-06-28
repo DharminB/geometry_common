@@ -237,7 +237,7 @@ class LineSegment2D
          * @param other rhs LineSegment2D object
          * @return bool true is all members are almost equal; false otherwise
          */
-        bool operator == (const LineSegment2D& line_segment) const;
+        bool operator == (const LineSegment2D& other) const;
 
         /**
          * @brief Inequality checking operator overload.
@@ -245,7 +245,7 @@ class LineSegment2D
          * @param other rhs LineSegment2D object
          * @return bool false is all members are almost equal; true otherwise
          */
-        bool operator != (const LineSegment2D& line_segment) const;
+        bool operator != (const LineSegment2D& other) const;
 
         /**
          * @brief 

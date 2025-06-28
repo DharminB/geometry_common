@@ -183,6 +183,7 @@ class Polyline2D
          * @param alpha The transparency of the generated line marker
          * in the range [0.0, 1.0]
          * @param line_width The width of the line marker
+         * @param use_line_strip whether to use LINE_STRIP or LINE_LIST type
          * @return visualization_msgs::msg::Marker A marker object representing the polyline
          */
         virtual visualization_msgs::msg::Marker asMarker(

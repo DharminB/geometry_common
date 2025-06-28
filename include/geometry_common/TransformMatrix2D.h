@@ -211,7 +211,7 @@ class TransformMatrix2D
          * @param other rhs TransformMatrix2D object
          * @return bool true is all members are almost equal; false otherwise
          */
-        bool operator == (const TransformMatrix2D& tf_mat) const;
+        bool operator == (const TransformMatrix2D& other) const;
 
         /**
          * @brief Inequality checking operator overload.
@@ -219,7 +219,7 @@ class TransformMatrix2D
          * @param other rhs TransformMatrix2D object
          * @return bool false is all members are almost equal; true otherwise
          */
-        bool operator != (const TransformMatrix2D& tf_mat) const;
+        bool operator != (const TransformMatrix2D& other) const;
 
         /**
          * @brief 

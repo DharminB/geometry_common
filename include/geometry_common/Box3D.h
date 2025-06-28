@@ -173,7 +173,7 @@ class Box3D
          * @param other rhs Box3D object
          * @return bool true if both Box3D are almost equal; false otherwise
          */
-        bool operator == (const Box3D& box) const;
+        bool operator == (const Box3D& other) const;
 
         /**
          * @brief inequality operator overload

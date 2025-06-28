@@ -157,7 +157,7 @@ class TransformMatrix3D
          * @param other rhs TransformMatrix3D object
          * @return bool true is all members are almost equal; false otherwise
          */
-        bool operator == (const TransformMatrix3D& tf_mat) const;
+        bool operator == (const TransformMatrix3D& other) const;
 
         /**
          * @brief Inequality checking operator overload.
@@ -165,7 +165,7 @@ class TransformMatrix3D
          * @param other rhs TransformMatrix3D object
          * @return bool false is all members are almost equal; true otherwise
          */
-        bool operator != (const TransformMatrix3D& tf_mat) const;
+        bool operator != (const TransformMatrix3D& other) const;
 
         /**
          * @brief 

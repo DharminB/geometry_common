@@ -18,7 +18,7 @@ We use [Doxygen](https://www.doxygen.nl/index.html) for code documentation.
 
 - Documentation can be built using the flag `-DBUILD_DOC=ON`
   ```bash
-  catkin build geometry_common -DBUILD_DOC=ON
+  colcon build --packages-up-to geometry_common --cmake-args -DBUILD_DOC=ON
   ```
 
 - The documentation will be generated at

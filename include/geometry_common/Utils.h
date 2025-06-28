@@ -449,6 +449,7 @@ class Utils
          * @param start_index 
          * @param end_index 
          * @param line_segment 
+         * @param is_ordered whether the points in pts are ordered in angle
          * @return float 
          */
         static float fitLineRegression(
@@ -463,6 +464,7 @@ class Utils
          * 
          * @param pts 
          * @param line_segment 
+         * @param is_ordered whether the points in pts are ordered in angle
          * @return float 
          */
         static float fitLineRegression(
