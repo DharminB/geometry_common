@@ -8,5 +8,5 @@ ament_add_gtest(geometry_common_test
     ${TEST_SOURCES}
 )
 target_link_libraries(geometry_common_test
-    geometry_utils
+    geometry_common
 )
