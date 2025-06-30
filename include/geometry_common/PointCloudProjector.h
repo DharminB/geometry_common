@@ -38,16 +38,15 @@
  *
  ******************************************************************************/
 
-#ifndef KELO_POINTCLOUD_PROJECTOR_H
-#define KELO_POINTCLOUD_PROJECTOR_H
+#pragma once
 
 #include <iostream>
 #include <string>
 #include <functional>
 
-#include <geometry_common/Point2D.h>
-#include <geometry_common/Point3D.h>
-#include <geometry_common/TransformMatrix3D.h>
+#include "geometry_common/Point2D.h"
+#include "geometry_common/Point3D.h"
+#include "geometry_common/TransformMatrix3D.h"
 
 namespace kelo
 {
@@ -305,4 +304,3 @@ class PointCloudProjector
 };
 
 } // namespace kelo
-#endif // KELO_POINTCLOUD_PROJECTOR_H

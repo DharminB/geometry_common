@@ -38,12 +38,11 @@
  *
  ******************************************************************************/
 
-#ifndef KELO_GEOMETRY_COMMON_CIRCLE_H
-#define KELO_GEOMETRY_COMMON_CIRCLE_H
+#pragma once
 
-#include <visualization_msgs/Marker.h>
+#include "visualization_msgs/msg/marker.hpp"
 
-#include <geometry_common/Point2D.h>
+#include "geometry_common/Point2D.h"
 
 namespace kelo
 {
@@ -137,9 +136,9 @@ class Circle : public Point2D
          * @param green 
          * @param blue 
          * @param alpha 
-         * @return visualization_msgs::Marker 
+         * @return visualization_msgs::msg::Marker 
          */
-        visualization_msgs::Marker asMarker(
+        visualization_msgs::msg::Marker asMarker(
                 const std::string& frame = "base_link",
                 float red = 1.0f,
                 float green = 0.0f,
@@ -191,4 +190,3 @@ class Circle : public Point2D
 
 } // namespace geometry_common
 } // namespace kelo
-#endif // KELO_GEOMETRY_COMMON_CIRCLE_H

@@ -1,6 +1,8 @@
-#include <gtest/gtest.h>
-#include <geometry_common/Pose2D.h>
-#include <geometry_msgs/Quaternion.h>
+#include "gtest/gtest.h"
+
+#include "geometry_msgs/msg/quaternion.hpp"
+
+#include "geometry_common/Pose2D.h"
 
 TEST(Pose2DTest, constructor)
 {

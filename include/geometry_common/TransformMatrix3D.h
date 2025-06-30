@@ -38,12 +38,11 @@
  *
  ******************************************************************************/
 
-#ifndef KELO_GEOMETRY_COMMON_TRANSFORM_MATRIX_3D_H
-#define KELO_GEOMETRY_COMMON_TRANSFORM_MATRIX_3D_H
+#pragma once
 
 #include <array>
 
-#include <tf/transform_datatypes.h>
+#include "geometry_msgs/msg/transform_stamped.hpp"
 
 namespace kelo
 {
@@ -75,7 +74,7 @@ class TransformMatrix3D
         TransformMatrix3D(float x, float y, float z,
                        float qx, float qy, float qz, float qw);
 
-        TransformMatrix3D(const tf::StampedTransform& stamped_transform);
+        TransformMatrix3D(const geometry_msgs::msg::TransformStamped& ts);
 
         TransformMatrix3D(const TransformMatrix3D& tf_mat);
 
@@ -87,7 +86,7 @@ class TransformMatrix3D
         void update(float x, float y, float z,
                     float qx, float qy, float qz, float qw);
 
-        void update(const tf::StampedTransform& stamped_transform);
+        void update(const geometry_msgs::msg::TransformStamped& ts);
 
         void update(const TransformMatrix3D& tf_mat);
 
@@ -158,7 +157,7 @@ class TransformMatrix3D
          * @param other rhs TransformMatrix3D object
          * @return bool true is all members are almost equal; false otherwise
          */
-        bool operator == (const TransformMatrix3D& tf_mat) const;
+        bool operator == (const TransformMatrix3D& other) const;
 
         /**
          * @brief Inequality checking operator overload.
@@ -166,7 +165,7 @@ class TransformMatrix3D
          * @param other rhs TransformMatrix3D object
          * @return bool false is all members are almost equal; true otherwise
          */
-        bool operator != (const TransformMatrix3D& tf_mat) const;
+        bool operator != (const TransformMatrix3D& other) const;
 
         /**
          * @brief 
@@ -186,4 +185,3 @@ class TransformMatrix3D
 
 } // namespace geometry_common
 } // namespace kelo
-#endif // KELO_GEOMETRY_COMMON_TRANSFORM_MATRIX_3D_H

@@ -38,9 +38,9 @@
  *
  ******************************************************************************/
 
-#include <geometry_common/LineSegment2D.h>
-#include <geometry_common/Point3D.h>
-#include <geometry_common/Polyline2D.h>
+#include "geometry_common/LineSegment2D.h"
+#include "geometry_common/Point3D.h"
+#include "geometry_common/Polyline2D.h"
 
 namespace kelo
 {
@@ -153,14 +153,14 @@ void Polyline2D::reverse()
     std::reverse(vertices.begin(), vertices.end());
 }
 
-visualization_msgs::Marker Polyline2D::asMarker(const std::string& frame,
+visualization_msgs::msg::Marker Polyline2D::asMarker(const std::string& frame,
         float red, float green, float blue, float alpha, float line_width,
         bool use_line_strip) const
 {
-    visualization_msgs::Marker marker;
+    visualization_msgs::msg::Marker marker;
     marker.type = ( use_line_strip )
-                  ? visualization_msgs::Marker::LINE_STRIP
-                  : visualization_msgs::Marker::LINE_LIST;
+                  ? visualization_msgs::msg::Marker::LINE_STRIP
+                  : visualization_msgs::msg::Marker::LINE_LIST;
     marker.header.frame_id = frame;
     marker.color.r = red;
     marker.color.g = green;

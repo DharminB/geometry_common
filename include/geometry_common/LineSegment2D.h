@@ -38,15 +38,15 @@
  *
  ******************************************************************************/
 
-#ifndef KELO_GEOMETRY_COMMON_LINE_SEGMENT_2D_H
-#define KELO_GEOMETRY_COMMON_LINE_SEGMENT_2D_H
+#pragma once
 
 #include <math.h>
 #include <string>
 #include <iostream>
-#include <visualization_msgs/Marker.h>
 
-#include <geometry_common/Point2D.h>
+#include "visualization_msgs/msg/marker.hpp"
+
+#include "geometry_common/Point2D.h"
 
 namespace kelo
 {
@@ -211,10 +211,10 @@ class LineSegment2D
          * @param alpha The transparency of the generated line marker
          * in the range [0.0, 1.0]
          * @param line_width The width of the line marker
-         * @return visualization_msgs::Marker A marker object representing the
+         * @return visualization_msgs::msg::Marker A marker object representing the
          * LineSegment2D object
          */
-        visualization_msgs::Marker asMarker(
+        visualization_msgs::msg::Marker asMarker(
                 const std::string& frame = "base_link",
                 float red = 1.0f,
                 float green = 0.0f,
@@ -237,7 +237,7 @@ class LineSegment2D
          * @param other rhs LineSegment2D object
          * @return bool true is all members are almost equal; false otherwise
          */
-        bool operator == (const LineSegment2D& line_segment) const;
+        bool operator == (const LineSegment2D& other) const;
 
         /**
          * @brief Inequality checking operator overload.
@@ -245,7 +245,7 @@ class LineSegment2D
          * @param other rhs LineSegment2D object
          * @return bool false is all members are almost equal; true otherwise
          */
-        bool operator != (const LineSegment2D& line_segment) const;
+        bool operator != (const LineSegment2D& other) const;
 
         /**
          * @brief 
@@ -261,4 +261,3 @@ class LineSegment2D
 
 } // namespace geometry_common
 } // namespace kelo
-#endif // KELO_GEOMETRY_COMMON_LINE_SEGMENT_2D_H

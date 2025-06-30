@@ -38,35 +38,35 @@
  *
  ******************************************************************************/
 
-#include <geometry_common/Utils.h>
-#include <geometry_common/Point3D.h>
+#include "geometry_common/Utils.h"
+#include "geometry_common/Point3D.h"
 
 namespace kelo
 {
 namespace geometry_common
 {
 
-geometry_msgs::Point Point3D::asPoint() const
+geometry_msgs::msg::Point Point3D::asPoint() const
 {
-    geometry_msgs::Point point;
+    geometry_msgs::msg::Point point;
     point.x = x;
     point.y = y;
     point.z = z;
     return point;
 }
 
-geometry_msgs::Point32 Point3D::asPoint32() const
+geometry_msgs::msg::Point32 Point3D::asPoint32() const
 {
-    geometry_msgs::Point32 point;
+    geometry_msgs::msg::Point32 point;
     point.x = x;
     point.y = y;
     point.z = z;
     return point;
 }
 
-geometry_msgs::PointStamped Point3D::asPointStamped(const std::string& frame) const
+geometry_msgs::msg::PointStamped Point3D::asPointStamped(const std::string& frame) const
 {
-    geometry_msgs::PointStamped point;
+    geometry_msgs::msg::PointStamped point;
     // point.header.stamp = ros::Time::now();
     point.header.frame_id = frame;
     point.point = asPoint();
@@ -96,11 +96,11 @@ float Point3D::dotProduct(const Point3D& point) const
     return (x * point.x) + (y * point.y) + (z * point.z);
 }
 
-visualization_msgs::Marker Point3D::asMarker(const std::string& frame,
+visualization_msgs::msg::Marker Point3D::asMarker(const std::string& frame,
         float red, float green, float blue, float alpha, float diameter) const
 {
-    visualization_msgs::Marker marker;
-    marker.type = visualization_msgs::Marker::SPHERE;
+    visualization_msgs::msg::Marker marker;
+    marker.type = visualization_msgs::msg::Marker::SPHERE;
     marker.header.frame_id = frame;
     marker.color.r = red;
     marker.color.g = green;

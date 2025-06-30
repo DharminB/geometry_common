@@ -39,8 +39,9 @@
  ******************************************************************************/
 
 #include <cmath>
-#include <geometry_common/Utils.h>
-#include <geometry_common/Polygon2D.h>
+
+#include "geometry_common/Utils.h"
+#include "geometry_common/Polygon2D.h"
 
 namespace kelo
 {
@@ -362,14 +363,14 @@ Polygon2D Polygon2D::calcInflatedPolygon(float inflation_dist) const
     return inflated_polygon;
 }
 
-visualization_msgs::Marker Polygon2D::asMarker(const std::string& frame,
+visualization_msgs::msg::Marker Polygon2D::asMarker(const std::string& frame,
         float red, float green, float blue, float alpha, float line_width,
         bool use_line_strip) const
 {
-    visualization_msgs::Marker marker;
+    visualization_msgs::msg::Marker marker;
     marker.type = ( use_line_strip )
-                  ? visualization_msgs::Marker::LINE_STRIP
-                  : visualization_msgs::Marker::LINE_LIST;
+                  ? visualization_msgs::msg::Marker::LINE_STRIP
+                  : visualization_msgs::msg::Marker::LINE_LIST;
     marker.header.frame_id = frame;
     marker.color.r = red;
     marker.color.g = green;
@@ -401,10 +402,10 @@ visualization_msgs::Marker Polygon2D::asMarker(const std::string& frame,
     return marker;
 }
 
-geometry_msgs::PolygonStamped Polygon2D::asPolygonStamped(
+geometry_msgs::msg::PolygonStamped Polygon2D::asPolygonStamped(
         const std::string& frame) const
 {
-    geometry_msgs::PolygonStamped polygon_msg;
+    geometry_msgs::msg::PolygonStamped polygon_msg;
     polygon_msg.header.frame_id = frame;
     polygon_msg.polygon.points.reserve(vertices.size());
     for ( const Point2D& pt : vertices )

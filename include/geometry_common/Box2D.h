@@ -38,12 +38,12 @@
  *
  ******************************************************************************/
 
-#ifndef KELO_GEOMETRY_COMMON_BOX_2D_H
-#define KELO_GEOMETRY_COMMON_BOX_2D_H
+#pragma once
 
-#include <visualization_msgs/Marker.h>
-#include <geometry_common/Point2D.h>
-#include <geometry_common/Polygon2D.h>
+#include "visualization_msgs/msg/marker.hpp"
+
+#include "geometry_common/Point2D.h"
+#include "geometry_common/Polygon2D.h"
 
 namespace kelo
 {
@@ -138,10 +138,10 @@ class Box2D
          * color in the range [0.0, 1.0]
          * @param alpha The transparency of the generated marker
          * in the range [0.0, 1.0]
-         * @return visualization_msgs::Marker A marker object representing the
+         * @return visualization_msgs::msg::Marker A marker object representing the
          * box
          */
-        visualization_msgs::Marker asMarker(
+        visualization_msgs::msg::Marker asMarker(
                 const std::string& frame = "base_link",
                 float red = 1.0f,
                 float green = 0.0f,
@@ -201,4 +201,3 @@ class Box2D
 
 } // namespace geometry_common
 } // namespace kelo
-#endif // KELO_GEOMETRY_COMMON_BOX_2D_H

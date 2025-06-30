@@ -1,8 +1,8 @@
-#include <gtest/gtest.h>
-
 #include <vector>
 
-#include <geometry_common/Polygon2D.h>
+#include "gtest/gtest.h"
+
+#include "geometry_common/Polygon2D.h"
 
 using kelo::geometry_common::Point2D;
 using kelo::geometry_common::Polygon2D;

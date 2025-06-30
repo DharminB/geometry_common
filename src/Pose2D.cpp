@@ -39,9 +39,10 @@
  ******************************************************************************/
 
 #include <cmath>
-#include <geometry_common/Utils.h>
-#include <geometry_common/TransformMatrix2D.h>
-#include <geometry_common/Pose2D.h>
+
+#include "geometry_common/Utils.h"
+#include "geometry_common/TransformMatrix2D.h"
+#include "geometry_common/Pose2D.h"
 
 namespace kelo
 {
@@ -55,7 +56,7 @@ Pose2D::Pose2D(float _x, float _y, float _theta)
     theta = Utils::clipAngle(_theta);
 }
 
-Pose2D::Pose2D(const geometry_msgs::PoseStamped& pose)
+Pose2D::Pose2D(const geometry_msgs::msg::PoseStamped& pose)
 {
     x = pose.pose.position.x;
     y = pose.pose.position.y;
@@ -66,7 +67,7 @@ Pose2D::Pose2D(const geometry_msgs::PoseStamped& pose)
             roll, pitch, theta);
 }
 
-Pose2D::Pose2D(const geometry_msgs::Pose& pose)
+Pose2D::Pose2D(const geometry_msgs::msg::Pose& pose)
 {
     x = pose.position.x;
     y = pose.position.y;
@@ -84,9 +85,9 @@ Pose2D::Pose2D(const TransformMatrix2D& tf_mat)
     theta = tf_mat.theta();
 }
 
-Pose2D::Pose2D(const tf::StampedTransform& stamped_transform)
+Pose2D::Pose2D(const geometry_msgs::msg::TransformStamped& ts)
 {
-    TransformMatrix2D tf_mat(stamped_transform);
+    TransformMatrix2D tf_mat(ts);
     x = tf_mat.x();
     y = tf_mat.y();
     theta = tf_mat.theta();
@@ -98,17 +99,17 @@ void Pose2D::updatePosition(const Point2D& pt)
     y = pt.y;
 }
 
-geometry_msgs::PoseStamped Pose2D::asPoseStamped(const std::string& frame) const
+geometry_msgs::msg::PoseStamped Pose2D::asPoseStamped(const std::string& frame) const
 {
-    geometry_msgs::PoseStamped pose;
+    geometry_msgs::msg::PoseStamped pose;
     pose.header.frame_id = frame;
     pose.pose = asPose();
     return pose;
 }
 
-geometry_msgs::Pose Pose2D::asPose() const
+geometry_msgs::msg::Pose Pose2D::asPose() const
 {
-    geometry_msgs::Pose pose;
+    geometry_msgs::msg::Pose pose;
     pose.position.x = x;
     pose.position.y = y;
     pose.position.z = 0.0f;
@@ -128,12 +129,12 @@ TransformMatrix2D Pose2D::asMat() const
     return TransformMatrix2D(*this);
 }
 
-visualization_msgs::Marker Pose2D::asMarker(const std::string& frame,
+visualization_msgs::msg::Marker Pose2D::asMarker(const std::string& frame,
         float red, float green, float blue, float alpha,
         float size_x, float size_y, float size_z) const
 {
-    visualization_msgs::Marker marker;
-    marker.type = visualization_msgs::Marker::ARROW;
+    visualization_msgs::msg::Marker marker;
+    marker.type = visualization_msgs::msg::Marker::ARROW;
     // marker.header.stamp = ros::Time::now();
     marker.header.frame_id = frame;
     marker.color.r = red;
@@ -147,31 +148,31 @@ visualization_msgs::Marker Pose2D::asMarker(const std::string& frame,
     return marker;
 }
 
-visualization_msgs::InteractiveMarker Pose2D::asInteractiveMarker(
+visualization_msgs::msg::InteractiveMarker Pose2D::asInteractiveMarker(
         const std::string& name, const std::string& frame,
         float red, float green, float blue, float alpha,
         float size_x, float size_y, float size_z) const
 {
-    visualization_msgs::InteractiveMarker interactive_marker;
+    visualization_msgs::msg::InteractiveMarker interactive_marker;
     interactive_marker.header.frame_id = frame;
     interactive_marker.name = name;
     interactive_marker.pose = asPose();
 
-    visualization_msgs::Marker arrow_marker = asMarker(
+    visualization_msgs::msg::Marker arrow_marker = asMarker(
             frame, red, green, blue, alpha, size_x, size_y, size_z);
 
-    visualization_msgs::InteractiveMarkerControl arrow_control;
+    visualization_msgs::msg::InteractiveMarkerControl arrow_control;
     arrow_control.always_visible = true;
     arrow_control.markers.push_back(arrow_marker);
     arrow_control.name = "move_x_y";
-    arrow_control.interaction_mode = visualization_msgs::InteractiveMarkerControl::MOVE_PLANE;
+    arrow_control.interaction_mode = visualization_msgs::msg::InteractiveMarkerControl::MOVE_PLANE;
     arrow_control.orientation.w = 1.0f;
     arrow_control.orientation.y = 1.0f;
     interactive_marker.controls.push_back(arrow_control);
 
-    visualization_msgs::InteractiveMarkerControl rotate_control;
+    visualization_msgs::msg::InteractiveMarkerControl rotate_control;
     rotate_control.name = "rotate_z";
-    rotate_control.interaction_mode = visualization_msgs::InteractiveMarkerControl::ROTATE_AXIS;
+    rotate_control.interaction_mode = visualization_msgs::msg::InteractiveMarkerControl::ROTATE_AXIS;
     rotate_control.orientation.y = 1.0f;
     rotate_control.orientation.w = 1.0f;
     interactive_marker.controls.push_back(rotate_control);

@@ -38,7 +38,7 @@
  *
  ******************************************************************************/
 
-#include <geometry_common/Box2D.h>
+#include "geometry_common/Box2D.h"
 
 namespace kelo
 {
@@ -88,11 +88,11 @@ Point2D Box2D::center() const
     return Point2D((min_x + max_x)/2, (min_y + max_y)/2);
 }
 
-visualization_msgs::Marker Box2D::asMarker(const std::string& frame,
+visualization_msgs::msg::Marker Box2D::asMarker(const std::string& frame,
         float red, float green, float blue, float alpha) const
 {
-    visualization_msgs::Marker marker;
-    marker.type = visualization_msgs::Marker::CUBE;
+    visualization_msgs::msg::Marker marker;
+    marker.type = visualization_msgs::msg::Marker::CUBE;
     marker.header.frame_id = frame;
     marker.color.r = red;
     marker.color.g = green;

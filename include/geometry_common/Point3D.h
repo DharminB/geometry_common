@@ -38,15 +38,14 @@
  *
  ******************************************************************************/
 
-#ifndef KELO_GEOMETRY_COMMON_POINT_3D_H
-#define KELO_GEOMETRY_COMMON_POINT_3D_H
+#pragma once
 
-#include <visualization_msgs/Marker.h>
-#include <geometry_msgs/PointStamped.h>
-#include <geometry_msgs/Point32.h>
-#include <geometry_msgs/Point.h>
+#include "geometry_msgs/msg/point.hpp"
+#include "geometry_msgs/msg/point32.hpp"
+#include "geometry_msgs/msg/point_stamped.hpp"
+#include "visualization_msgs/msg/marker.hpp"
 
-#include <geometry_common/Point2D.h>
+#include "geometry_common/Point2D.h"
 
 namespace kelo
 {
@@ -99,7 +98,7 @@ class Point3D
          * 
          * @param point 
          */
-        Point3D(const geometry_msgs::PointStamped& point):
+        Point3D(const geometry_msgs::msg::PointStamped& point):
             Point3D(point.point) {}
 
         /**
@@ -107,7 +106,7 @@ class Point3D
          * 
          * @param point 
          */
-        Point3D(const geometry_msgs::Point& point):
+        Point3D(const geometry_msgs::msg::Point& point):
             Point3D(point.x, point.y, point.z) {}
 
         /**
@@ -115,7 +114,7 @@ class Point3D
          * 
          * @param point 
          */
-        Point3D(const geometry_msgs::Point32& point):
+        Point3D(const geometry_msgs::msg::Point32& point):
             Point3D(point.x, point.y, point.z) {}
 
         /**
@@ -127,24 +126,24 @@ class Point3D
         /**
          * @brief
          * 
-         * @return geometry_msgs::Point 
+         * @return geometry_msgs::msg::Point 
          */
-        geometry_msgs::Point asPoint() const;
+        geometry_msgs::msg::Point asPoint() const;
 
         /**
          * @brief
          * 
-         * @return geometry_msgs::Point32 
+         * @return geometry_msgs::msg::Point32 
          */
-        geometry_msgs::Point32 asPoint32() const;
+        geometry_msgs::msg::Point32 asPoint32() const;
 
         /**
          * @brief
          * 
          * @param frame 
-         * @return geometry_msgs::PointStamped 
+         * @return geometry_msgs::msg::PointStamped 
          */
-        geometry_msgs::PointStamped asPointStamped(
+        geometry_msgs::msg::PointStamped asPointStamped(
                 const std::string& frame = "map") const;
 
         /**
@@ -210,9 +209,9 @@ class Point3D
          * @param blue 
          * @param alpha 
          * @param diameter 
-         * @return visualization_msgs::Marker 
+         * @return visualization_msgs::msg::Marker 
          */
-        visualization_msgs::Marker asMarker(
+        visualization_msgs::msg::Marker asMarker(
                 const std::string& frame = "base_link",
                 float red = 1.0f,
                 float green = 0.0f,
@@ -308,4 +307,3 @@ using PointCloud3D = std::vector<Point3D>;
 
 } // namespace geometry_common
 } // namespace kelo
-#endif // KELO_GEOMETRY_COMMON_POINT_3D_H
