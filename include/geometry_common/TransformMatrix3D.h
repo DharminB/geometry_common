@@ -42,6 +42,7 @@
 
 #include <array>
 
+#include "geometry_msgs/msg/pose.hpp"
 #include "geometry_msgs/msg/transform_stamped.hpp"
 
 namespace kelo
@@ -75,6 +76,8 @@ class TransformMatrix3D
                        float qx, float qy, float qz, float qw);
 
         TransformMatrix3D(const geometry_msgs::msg::TransformStamped& ts);
+
+        TransformMatrix3D(const geometry_msgs::msg::Pose& pose);
 
         TransformMatrix3D(const TransformMatrix3D& tf_mat);
 
@@ -127,6 +130,8 @@ class TransformMatrix3D
         std::array<float, 9> rotationMatrix() const;
 
         Vector3D translationVector() const;
+
+        geometry_msgs::msg::Pose asPose() const;
 
         void transform(Point3D& point) const;
 
