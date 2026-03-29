@@ -246,11 +246,14 @@ float TransformMatrix3D::yaw() const
 
 std::array<float, 4> TransformMatrix3D::quaternion() const
 {
+    /*
+     * source: https://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
+     */
     std::array<float, 4> q;
-    q[0] = std::copysign(0.5f * std::sqrt(1.0f + mat_[0] - mat_[5] - mat_[10]), (mat_[9] - mat_[6]));
-    q[1] = std::copysign(0.5f * std::sqrt(1.0f - mat_[0] + mat_[5] - mat_[10]), (mat_[2] - mat_[8]));
-    q[2] = std::copysign(0.5f * std::sqrt(1.0f - mat_[0] - mat_[5] + mat_[10]), (mat_[4] - mat_[1]));
-    q[3] = 0.5f * std::sqrt(1.0f + mat_[0] + mat_[5] + mat_[10]);
+    q[0] = std::copysign(0.5f * std::sqrt(std::max(0.0f, 1.0f + mat_[0] - mat_[5] - mat_[10])), (mat_[9] - mat_[6]));
+    q[1] = std::copysign(0.5f * std::sqrt(std::max(0.0f, 1.0f - mat_[0] + mat_[5] - mat_[10])), (mat_[2] - mat_[8]));
+    q[2] = std::copysign(0.5f * std::sqrt(std::max(0.0f, 1.0f - mat_[0] - mat_[5] + mat_[10])), (mat_[4] - mat_[1]));
+    q[3] = 0.5f * std::sqrt(std::max(0.0f, 1.0f + mat_[0] + mat_[5] + mat_[10]));
     return q;
 }
 
