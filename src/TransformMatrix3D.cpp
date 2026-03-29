@@ -66,6 +66,18 @@ TransformMatrix3D::TransformMatrix3D(const geometry_msgs::msg::TransformStamped&
     update(ts);
 }
 
+TransformMatrix3D::TransformMatrix3D(const geometry_msgs::msg::Pose& pose)
+{
+    update(
+        pose.position.x,
+        pose.position.y,
+        pose.position.z,
+        pose.orientation.x,
+        pose.orientation.y,
+        pose.orientation.z,
+        pose.orientation.w);
+}
+
 TransformMatrix3D::TransformMatrix3D(const TransformMatrix3D& tf_mat)
 {
     update(tf_mat);
@@ -235,7 +247,10 @@ float TransformMatrix3D::yaw() const
 std::array<float, 4> TransformMatrix3D::quaternion() const
 {
     std::array<float, 4> q;
-    Utils::convertEulerToQuaternion(roll(), pitch(), yaw(), q[0], q[1], q[2], q[3]);
+    q[0] = std::copysign(0.5f * std::sqrt(1.0f + mat_[0] - mat_[5] - mat_[10]), (mat_[9] - mat_[6]));
+    q[1] = std::copysign(0.5f * std::sqrt(1.0f - mat_[0] + mat_[5] - mat_[10]), (mat_[2] - mat_[8]));
+    q[2] = std::copysign(0.5f * std::sqrt(1.0f - mat_[0] - mat_[5] + mat_[10]), (mat_[4] - mat_[1]));
+    q[3] = 0.5f * std::sqrt(1.0f + mat_[0] + mat_[5] + mat_[10]);
     return q;
 }
 
@@ -255,6 +270,20 @@ std::array<float, 9> TransformMatrix3D::rotationMatrix() const
 Vector3D TransformMatrix3D::translationVector() const
 {
     return Vector3D(mat_[3], mat_[7], mat_[11]);
+}
+
+geometry_msgs::msg::Pose TransformMatrix3D::asPose() const
+{
+    geometry_msgs::msg::Pose pose;
+    pose.position.x = x();
+    pose.position.y = y();
+    pose.position.z = z();
+    const std::array<float, 4> q = quaternion();
+    pose.orientation.x = q[0];
+    pose.orientation.y = q[1];
+    pose.orientation.z = q[2];
+    pose.orientation.w = q[3];
+    return pose;
 }
 
 void TransformMatrix3D::transform(Point3D& point) const
