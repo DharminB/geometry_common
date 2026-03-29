@@ -1450,20 +1450,22 @@ void Utils::convertQuaternionToEuler(
         float& yaw)
 {
     /**
-     * source: https://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToEuler/
+     * source: adapted from
+     * https://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToEuler/
+     * for euler ZYX format
      */
-    float sinpitch = 2 * (qw * qy - qz * qx);
-    if ( sinpitch >= 1.0f ) // singularity at north pole
+    const float sinpitch = 2 * (qw * qy - qz * qx);
+    if ( sinpitch >= 1.0f-1e-6f ) // singularity at north pole
     {
         roll = 0.0f;
         pitch = M_PI/2;
-        yaw = 2 * std::atan2(qx, qw);
+        yaw = -2 * std::atan2(qx, qw);
     }
-    else if ( sinpitch <= -1.0f ) // singularity at south pole
+    else if ( sinpitch <= -1.0f+1e-6f ) // singularity at south pole
     {
         roll = 0.0f;
         pitch = -M_PI/2;
-        yaw = -2 * std::atan2(qx, qw);
+        yaw = 2 * std::atan2(qx, qw);
     }
     else
     {

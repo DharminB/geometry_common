@@ -108,8 +108,8 @@ TEST(UtilsTest, convertQuaternionToEuler)
     Utils::convertQuaternionToEuler(q.x, q.y, q.z, q.w, roll, pitch, yaw);
     EXPECT_NEAR(roll, 0.0f, 1e-3f);
     EXPECT_NEAR(pitch, M_PI/2, 1e-3f);
-    EXPECT_NEAR(yaw, 0.2f, 1e-3f);
-    // actual rpy was 0.2, pi/2 and 0.4 but it is also equivalent to 0, pi/2 and 0.2
+    EXPECT_NEAR(yaw, -0.2f, 1e-3f);
+    // actual rpy was 0.2, pi/2 and 0.4 but it is also equivalent to 0, pi/2 and -0.2
 
     q.x = -0.197671f;
     q.y =  0.975170f;
