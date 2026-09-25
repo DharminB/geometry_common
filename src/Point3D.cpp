@@ -116,6 +116,11 @@ visualization_msgs::msg::Marker Point3D::asMarker(const std::string& frame,
     return marker;
 }
 
+Point2D Point3D::asPoint2D() const
+{
+    return Point2D(x, y);
+}
+
 Point3D& Point3D::operator = (const Point3D& other)
 {
     x = other.x;

@@ -220,6 +220,13 @@ class Point3D
                 float diameter = 0.2f) const;
 
         /**
+         * @brief Get a 2D point with just x and y coordinates
+         *
+         * @return 2D projected point on XY Plane
+         */
+        Point2D asPoint2D() const;
+
+        /**
          * @brief 
          * 
          * @param other 
